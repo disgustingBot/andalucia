@@ -1,2 +1,2 @@
-# andalucia
-Simple Wordpress Theme
+# blankCanvas
+Empty Wordpress Theme
