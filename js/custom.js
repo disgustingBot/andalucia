@@ -44,6 +44,7 @@ if(x.length>0){showDivs(j);setTimeout(carousel, 8000);}
 // alternates a class from a selector of choice, example:
 // <div class="someButton" onclick="altClassFromSelector('activ', '#navBar')"></div>
 const altClassFromSelector = ( clase, selector, mainClass = false )=>{
+  // TODO: mejorar este query selector a un querySelectorAll
   const x = d.querySelector(selector);
   // if there is a main class removes all other classes
   if(mainClass){
@@ -106,3 +107,48 @@ for (i = 0; i < acc.length; i++) {
     }
   });
 }
+
+
+
+
+
+
+
+  // Set the date we're counting down to
+  var time = d.getElementById('date').innerText ? d.getElementById('date').innerText : NULL;
+  // c.log(time);
+  var countDownDate = new Date(time).getTime();
+  // var countDownDate = new Date("Jan 18, 2020 00:00:00").getTime();
+  // c.log(countDownDate);
+  // Update the count down every 1 second
+  var x = setInterval(()=>{
+
+    // Get today's date and time
+    var now = new Date().getTime();
+
+    // Find the distance between now and the count down date
+    var distance = countDownDate - now;
+    // c.log(distance)
+    // If the count down is over, write some text
+    if (distance < 0) {
+      clearInterval(x);
+      // d.getElementById("view").classList.add("expired");
+      // c.log('Expired');
+      // return;
+    }
+
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor( distance / (1000 * 60 * 60 * 24));
+    var hour = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var mnts = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var scds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Output the result in an element with id="demo"
+    // d.getElementById("demo").innerHTML = days + " : " + hour + " : " + mnts    + " : " + scds;
+    d.getElementById("days").innerHTML = days;
+    d.getElementById("hour").innerHTML = hour;
+    d.getElementById("mnts").innerHTML = mnts;
+    d.getElementById("scds").innerHTML = scds;
+
+    // c.log('runing')
+  }, 1000);

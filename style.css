@@ -30,10 +30,18 @@ Version: 1.0
 6) =COMPONENTES:
 6.0) =load:
 6.1) =header:
-
+6.2) =ATFs:
+6.2.1) =pageATF:
+6.3) =frontPage:
 6.4) =multiCards:
-
+6.4.0) =card:
+6.5) =navBar:
 6.6) =BUTTONS:
+6.6.1) =sendBtn:
+6.6.2) =burger:
+6.7) =section:
+6.8) =form:
+6.9) =countdown:
 
 6.99) =footer
 
@@ -83,11 +91,30 @@ FIN DE MAPA DE CONTENIDOS */
   --------------------------------------------------------------------------- */
   --onlyDesktopF:none;
   --onlyDesktopG:none;
+  --gridOver992:none;
+  --gridUnder992:grid;
   --onlyMobileF:flex;
   --onlyMobileG:grid;
 
   /* ?HEADER */
+  --navBarPosition:absolute;
+  --navBarPointerEvents:none;
+  --navBarOpacity:0;
+  --navBarPadding:1rem;
+  --navBarGAF:row;
+
+
+  --sectionSimpleDisplay:block;
+  --singleImgPosition:static;
+  --siteTitleFontSize:3rem;
+
+  --GTC_1_2:1fr;
+  --showGTC:1fr;
+
+  --partnersGridGTC:1fr 1fr;
+  --partnersGridPaddingX:1rem;
   /* ?FOOTER */
+  --lastFooterLogoGC:1;
 }
 /* ---------------------------------------------------------------------------
 ------------------------------------------------------------------------------
@@ -119,7 +146,17 @@ FIN DE MAPA DE CONTENIDOS */
 @media screen and (min-width: 576px) {
   :root {
     /* ?HEADER */
+
+    --showGTC:1fr 1fr;
+    --GTC_1_2:1fr 1fr;
+
+
+    --siteTitleFontSize:6rem;
+
+    --partnersGridGTC:1fr 1fr 1fr;
+    --partnersGridPaddingX:3rem;
     /* ?FOOTER */
+    --lastFooterLogoGC:2;
   }
 }
 
@@ -137,7 +174,15 @@ FIN DE MAPA DE CONTENIDOS */
     --onlyMobileG:none;
 
     /* ?HEADER */
+
+
+    --sectionSimpleDisplay:grid;
+    --singleImgPosition:sticky;
+    --showGTC:repeat(4,1fr);
+
+    --partnersGridGTC:repeat(4,1fr);
     /* ?FOOTER */
+    --lastFooterLogoGC:4;
   }
 }
 
@@ -149,7 +194,17 @@ FIN DE MAPA DE CONTENIDOS */
 --------------------------------------------------------------------------- */
 @media screen and (min-width: 992px) {
   :root {
+    --gridOver992:grid;
+    --gridUnder992:none;
     /* ?HEADER */
+    --navBarPosition:static;
+    --navBarPointerEvents:initial;
+    --navBarOpacity:1;
+    --navBarPadding:0;
+    --navBarGAF:column;
+
+
+    --partnersGridGTC:repeat(5,1fr);
     /* ?FOOTER */
   }
 }
@@ -190,7 +245,13 @@ FIN DE MAPA DE CONTENIDOS */
 ------------------------------------------------------------------------------
 --------------------------------------------------------------------------- */
 *{box-sizing:border-box;margin:0;padding:0}
-body{display:grid}
+html{scroll-behavior:smooth}
+body{
+  display:grid;
+  font-family: 'El Messiri', sans-serif;
+  background:#ddd;
+  grid-gap:1rem;
+}
 img{object-fit:cover;width:100%}
 a{text-decoration:none}
 ul,ol{list-style:none}
@@ -269,6 +330,71 @@ main ul,main ol{list-style:unset}
 ------------------------------------------------------------------------------
 --------------------------------------------------------------------------- */
 .header {}
+
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                            6.2) =ATFs:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                            6.2.1) =pageATF:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.pageATF{
+  display:grid;
+}
+.pageATFImg{
+  height:20rem;
+}
+.pageATFCaption{
+  padding:0 var(--lateral);
+  position: relative;
+  display: grid;
+  grid-template-rows:1fr auto;
+}
+.pageATFTitle{
+  padding:0 1rem;
+  margin:auto 0;
+  font-size:3rem;
+  color:var(--color2);
+}
+.pageATFSubTitle{
+  background:#ddd;
+  border-radius:8px 8px 0 0;
+  padding:.3rem 1rem;
+  margin:auto;
+  margin-left:0;
+}
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                            6.3) =frontPage:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.siteTitle{
+  /* font-family: 'Kaushan Script', cursive; */
+  /* font-family: 'Marck Script', cursive; */
+  font-family: 'Arizonia', cursive;
+  /* font-size:6rem; */
+  font-size:var(--siteTitleFontSize);
+  text-align:center;
+}
+.siteSubTitle{
+  font-size:1.4rem;
+  text-align:center;
+}
+.show{
+  display:grid;
+  /* grid-template-columns:repeat(4,1fr); */
+  grid-template-columns:var(--showGTC);
+  padding:1rem 0;
+  grid-gap:.5rem;
+}
+
 /* ---------------------------------------------------------------------------
 ------------------------------------------------------------------------------
                           6.4) =multiCards:
@@ -277,14 +403,407 @@ main ul,main ol{list-style:unset}
 
 /* ---------------------------------------------------------------------------
 ------------------------------------------------------------------------------
+                          6.4.0) =card:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.card{
+  /* display:grid; */
+}
+.cardImg{
+  display:grid;
+  height:calc((100vw - 16px - var(--lateral) * 2 - 1.5rem - 2rem) / 4)
+}
+.cardCaption{
+  padding:.5rem;
+}
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                          6.5) =navBar:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.navBarContainer{
+  display:grid;
+  grid-template-columns:1fr auto;
+  position:sticky;
+  top:0;
+  z-index:15;
+  background:#baddab;
+  margin:0 var(--lateral);
+  padding:1rem 1rem;
+}
+.navBarContainer .burger{display:var(--gridUnder992)}
+.navBar{
+  background:#baddab;
+  border-radius:0 0 0 12px;
+  position:var(--navBarPosition);
+  top:-1rem;
+  right:0;
+  display:grid;
+  grid-template-columns:1fr;
+  grid-auto-flow:var(--navBarGAF);
+  grid-auto-columns:min-content;
+  grid-gap:.5rem;
+  transition:.4s;
+  padding:var(--navBarPadding);
+  opacity:var(--navBarOpacity);
+  pointer-events:var(--navBarPointerEvents)
+}
+/* .navBar:hover, */
+.navBar:hover,
+.burger:focus+.navBar,
+.burger:hover+.navBar{
+  top:0;
+  opacity:1;
+  pointer-events:initial;
+}
+.navBar.alt{
+  opacity:1;
+  pointer-events:initial;
+}
+.navLink{
+  color:inherit;
+  display:flex;
+  align-items:center;
+  font-size:.8rem;
+  line-height:.8rem;
+}
+.navHome{
+  font-family: 'Arizonia', cursive;
+  font-size:1.3rem;
+  line-height:.8rem;
+  margin-right: auto;
+}
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
                           6.6) =BUTTONS:
 ------------------------------------------------------------------------------
 --------------------------------------------------------------------------- */
 
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                          6.6.1) =sendBtn:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.sendBtn{
+  background:#6FBE4A;
+  border:none;
+  border-radius:6px;
+  font-size:.8rem;
+  color:white;
+  cursor:pointer;
+  padding:.5rem 1rem;
+  text-align: center;
+  transition:.3s;
+  width:100%;
+}
+.sendBtn:hover{background:#4F8934}
 
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                          6.6.2) =burger:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.burger {
+  cursor: pointer;
+  /* display:var(--gridUnder992); */
+  grid-column: 2;
+  grid-row: 1;
+  height: 2rem;
+  margin: auto;
+  margin-right: .5rem;
+  padding: .5rem .5rem;
+  transition: .25s;
+  width: 50px;
+}
+/* .headerTop .burger {
+  margin: auto;
+} */
+
+.burgerBar {
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color1);
+  margin: auto;
+}
+.burgerBar:nth-child(2){margin:4px 0}
+
+
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                          6.7) =section:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.section{
+  padding:3rem 1rem;
+  margin:0 var(--lateral);
+  display:flex;
+  flex-direction: column;
+  /* grid-template-columns:1fr 1fr; */
+  background:white;
+  border-radius:16px 0 0 0;
+  grid-auto-flow: dense;
+}
+.home .section{
+  padding:1rem;
+  margin-top: 1rem;
+}
+.sectionTitle{
+  font-size:1.5rem;
+}
+.sectionText span{text-transform:lowercase;}
+/* cuando */
+.section.cuando,
+.section.donde{
+  display: grid;
+  /* grid-template-columns:1fr 1fr; */
+  grid-template-columns:var(--GTC_1_2);
+  grid-gap:1rem;
+}
+.section.cuando .sectionTitle,
+.section.donde .sectionTitle{grid-column:1/-1;}
+.section.cuando .col1{
+  display:grid;
+  grid-gap:.5rem;
+  /* grid-template-rows:auto auto auto 1fr; */
+}
+.cronogramaData{
+  display:flex;
+  flex-direction: column;
+  /* flex-wrap:wrap; */
+  /* grid-row:2; */
+}
+.col1{grid-column:1}
+.col2{grid-column:2}
+
+.logoTxt{display:flex;}
+.logoTxtSvg{
+  width:1rem;
+  height:1rem;
+  margin:auto 0;
+  margin-right:.5rem;
+}
+.logoTxtTxt{margin:auto 0;padding-right:.5rem;}
+/* donde */
+.section.donde .col1{
+  display:grid;
+  grid-gap:.5rem;
+  margin: auto;
+}
+.dondeMap{
+  width:100%;
+  height:calc((100vw - 16px - var(--lateral) * 2 - 3rem) / 3);
+}
+/* .section.donde{} */
+/* contacto */
+.section.contacto .contactoFeatures{
+  display:grid;
+  grid-template-columns:var(--GTC_1_2);
+  grid-gap:1rem;
+}
+.contactoFeatures .logoTxt{flex-direction:column;text-align:center;}
+.contactoFeatures .logoTxtSvg{
+  margin: auto;
+  width:3rem;
+}
+
+/* single */
+.section.single{
+  /* display:grid; */
+  display:var(--sectionSimpleDisplay);
+  grid-template-columns: 1fr 300px;
+  grid-gap:1rem;
+}
+.singleTitle{
+  font-size:2.5rem;
+}
+.singleImg{
+  grid-row:1/3;
+  /* position:sticky; */
+  position:var(--singleImgPosition);
+  top:3rem;
+}
+.singleContent h5{font-size:1.2rem;}
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                          6.8) =form:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.form{
+  padding:1rem var(--partnersGridPaddingX);
+  display:grid;
+  grid-gap:.5rem;
+  grid-template-columns:var(--GTC_1_2);
+}
+.formFull{grid-column:1/-1}
+.formHalf{grid-column:span 1}
+.formInput{
+  padding:.5rem 1rem;
+  border-radius: 4px;
+  width:100%;
+  border:1px solid #aaa;
+  font-size:.8rem;
+}
+.formInput:focus{outline:1px solid black}
+.formCheckbox{
+  /* display:flex; */
+  /* flex-wrap: wrap; */
+}
+.formCheckbox *{display:inline;}
+.formCheckbox .formInput:focus{outline:none}
+.formCheckbox .formInput{
+  width:auto;
+  display:inline;
+}
+
+/* siteurl http://localhost/andalucia */
+/* home http://localhost/andalucia */
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                          6.9) =countdown:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.countdown{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  align-items:center;
+  /* grid-row:4/8; */
+  grid-gap:.3rem;
+  margin:auto;
+  grid-column:1/-1;
+}
+.countdownBox{
+  background: #ebeef0;
+  /* background: #666; */
+  display:grid;
+  text-align: center;
+}
+.countdownNumber{
+  font-size:2rem;
+  line-height:2rem;
+  padding:.3rem;
+}
+.countdownData{
+  padding: .3rem .5rem;
+  line-height:.8rem;
+  font-size:.8rem;
+}
+
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                          6.10) =partners:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.partnersFilter{
+  /* display:grid; */
+  /* grid-auto-flow:column; */
+  /* grid-auto-columns:min-content; */
+  /* grid-gap:.5rem; */
+  display:flex;
+  flex-wrap:wrap;
+  background:#ddd;
+  border-radius:4px;
+  justify-content:center;
+  padding:.5rem 1rem;
+  margin:1rem 0;
+}
+.partnersFilterLink{
+  cursor:pointer;
+  transition:.4s;
+  text-transform: capitalize;
+  margin-right:.5rem;
+  /* color:green; */
+}
+.partnersFilterLink:hover{color:green}
+.partnersGrid{
+  display:grid;
+  /* grid-template-columns:repeat(5,1fr); */
+  grid-template-columns:var(--partnersGridGTC);
+  grid-auto-rows:1fr;
+  /* padding:1rem 3rem; */
+  padding:1rem var(--partnersGridPaddingX);
+  grid-gap:1rem;
+}
+.partnerCard{
+  position:relative;
+  display:grid;
+  display:none;
+  transition:.4s;
+  align-items:center;
+  cursor:pointer;
+}
+.partnerCardCaption{
+  align-items: center;
+  text-align:center;
+  font-size:.8rem;
+  opacity:0;
+  pointer-events:none;
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  transition:.8s;
+  background:white;
+  display:grid;
+  z-index:1;
+}
+.partnerCard:hover .partnerCardCaption{opacity:1;}
+.andalucia .almeria,
+.andalucia .cadiz,
+.andalucia .cordoba,
+.andalucia .granada,
+.andalucia .huelva,
+.andalucia .huelva,
+.andalucia .andalucia{display:grid}
 /* ---------------------------------------------------------------------------
 ------------------------------------------------------------------------------
                           6.99) =footer
 ------------------------------------------------------------------------------
 --------------------------------------------------------------------------- */
-.footer{}
+.footer{
+  margin:0 var(--lateral);
+  padding:1rem;
+  display:grid;
+}
+.footer .show{
+  padding:1rem 2rem;
+}
+.logosFooter:hover{filter:grayscale(0)}
+.logosFooter{
+  filter:grayscale(1);
+  padding:.5rem;
+  transition:.5s;
+}
+.logosFooter:last-child{grid-column:var(--lastFooterLogoGC)}
+.navFooter{
+  /* display:grid; */
+  display:flex;
+  flex-wrap: wrap;
+  margin:auto;
+  justify-content: center;
+  /* grid-template-columns:repeat(4,max-content); */
+  /* grid-gap:1rem; */
+}
+.navFooterLink:hover{color:red}
+/* .navFooterLi{
+  transition:.5rem;
+} */
+.navFooterLi{margin-right:1rem}
+.navFooterLi:last-child{margin:0;}
+.navFooterLink{
+  color:inherit;
+  color:black;
+  font-size:.7rem;
+  transition:.5s;
+}
+
+.signature{
+  text-align: center;
+  font-size:.8rem;
+}

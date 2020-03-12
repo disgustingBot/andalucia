@@ -1,5 +1,14 @@
 <?php
 
+
+// DNS VIEJOS
+// dns49.servidoresdns.net
+// 217.76.128.165
+
+// dns50.servidoresdns.net
+// 82.223.218.165
+
+
 require_once 'customPosts.php';
 
 function lattte_setup(){
@@ -11,7 +20,7 @@ add_action('wp_enqueue_scripts', 'lattte_setup');
 // Adding Theme Support
 
 function gp_init() {
-  // add_theme_support('post-thumbnails');
+  add_theme_support('post-thumbnails');
   add_theme_support('title-tag');
   add_theme_support('html5',
     array('comment-list', 'comment-form', 'search-form')
@@ -75,7 +84,7 @@ function excerpt($charNumber){
    // register_nav_menu('navBar',__( 'Header' ));
    // register_nav_menu('navBarMobile',__( 'Header Mobile' ));
    // register_nav_menu('contactMenu',__( 'Contact Menu' ));
-   // add_post_type_support( 'page', 'excerpt' );
+   add_post_type_support( 'page', 'excerpt' );
  }
  add_action( 'init', 'register_menus' );
 
@@ -96,14 +105,116 @@ function excerpt($charNumber){
 
 
 
+ // add_action(        'admin_post_lt_form_response', 'lt_form_handler');
+ // add_action( 'admin_post_nopriv_lt_form_response', 'lt_form_handler');
+ add_action(        'admin_post_lt_form_handler', 'lt_form_handler');
+ add_action( 'admin_post_nopriv_lt_form_handler', 'lt_form_handler');
+ function lt_form_handler() {
+   $link=$_POST['link'];
+   // $mail=$_POST['mail'];
+   $mail='molinerozadkiel@gmail.com';
+
+   $subject='Form from '.$link;
+   $message='';
+
+   if(isset($_POST['a01'])){$a01=$_POST['a01'];$message=$message.'<strong>Data 01:</strong> '.$a01.' - </br>';}
+   if(isset($_POST['a02'])){$a02=$_POST['a02'];$message=$message.'<strong>Data 02:</strong> '.$a02.' - </br>';}
+   if(isset($_POST['a03'])){$a03=$_POST['a03'];$message=$message.'<strong>Data 03:</strong> '.$a03.' - </br>';}
+   if(isset($_POST['a04'])){$a04=$_POST['a04'];$message=$message.'<strong>Data 04:</strong> '.$a04.' - </br>';}
+   if(isset($_POST['a05'])){$a05=$_POST['a05'];$message=$message.'<strong>Data 05:</strong> '.$a05.' - </br>';}
+   if(isset($_POST['a06'])){$a06=$_POST['a06'];$message=$message.'<strong>Data 06:</strong> '.$a06.' - </br>';}
+   if(isset($_POST['a07'])){$a07=$_POST['a07'];$message=$message.'<strong>Data 07:</strong> '.$a07.' - </br>';}
+   if(isset($_POST['a08'])){$a08=$_POST['a08'];$message=$message.'<strong>Data 08:</strong> '.$a08.' - </br>';}
+   if(isset($_POST['a09'])){$a09=$_POST['a09'];$message=$message.'<strong>Data 09:</strong> '.$a09.' - </br>';}
+   if(isset($_POST['a10'])){$a10=$_POST['a10'];$message=$message.'<strong>Data 10:</strong> '.$a10.' - </br>';}
+   if(isset($_POST['a11'])){$a11=$_POST['a11'];$message=$message.'<strong>Data 11:</strong> '.$a11.' - </br>';}
+   if(isset($_POST['a12'])){$a12=$_POST['a12'];$message=$message.'<strong>Data 12:</strong> '.$a12.' - </br>';}
+   if(isset($_POST['a13'])){$a13=$_POST['a13'];$message=$message.'<strong>Data 13:</strong> '.$a13.' - </br>';}
+   if(isset($_POST['a14'])){$a14=$_POST['a14'];$message=$message.'<strong>Data 14:</strong> '.$a14.' - </br>';}
+   if(isset($_POST['a15'])){$a15=$_POST['a15'];$message=$message.'<strong>Data 15:</strong> '.$a15.' - </br>';}
+   if(isset($_POST['a16'])){$a16=$_POST['a16'];$message=$message.'<strong>Data 16:</strong> '.$a16.' - </br>';}
+   if(isset($_POST['a17'])){$a17=$_POST['a17'];$message=$message.'<strong>Data 17:</strong> '.$a17.' - </br>';}
+   if(isset($_POST['a18'])){$a18=$_POST['a18'];$message=$message.'<strong>Data 18:</strong> '.$a18.' - </br>';}
+   if(isset($_POST['a19'])){$a19=$_POST['a19'];$message=$message.'<strong>Data 19:</strong> '.$a19.' - </br>';}
+   if(isset($_POST['a20'])){$a20=$_POST['a20'];$message=$message.'<strong>Data 20:</strong> '.$a20.' - </br>';}
+
+
+  // echo $message;
+
+
+  // $cosa = var_dump(wp_mail( $mail , $subject , $message ));
+  if (wp_mail( $mail , $subject , $message )) {
+    // code...
+       $link = add_query_arg( array(
+         'email' => 'sent',
+         // 'status' => $status,
+         // 'resultado' => username_exists( $mail ),
+       ), $link );
+  } else {
+
+       $link = add_query_arg( array(
+         'email' => 'error',
+         // 'status' => $status,
+         // 'resultado' => username_exists( $mail ),
+       ), $link );
+  }
+   // wp_mail( $mail , $subject , $message );
+
+
+   // $a2 = $_POST['a2'];
+   // $a3 = $_POST['a3'];
+   // $a4 = $_POST['a4'];
+   // $a5 = $_POST['a5'];
+   // $a6 = $_POST['a6'];
+
+   // $link = add_query_arg( array(
+   //   'email' => 'sent',
+   //   // 'status' => $status,
+   //   // 'resultado' => username_exists( $mail ),
+   // ), $link );
 
 
 
+   wp_redirect($link);
+ }
 
+ // show wp_mail() errors
+ // add_action( 'wp_mail_failed', 'onMailError', 10, 1 );
+ // function onMailError( $wp_error ) {
+ //     echo "<pre>";
+ //     print_r($wp_error);
+ //     echo "</pre>";
+ // }
 
+ function wpse27856_set_content_type(){
+     return "text/html";
+ }
+ add_filter( 'wp_mail_content_type','wpse27856_set_content_type' );
 
-
-
+ // add_action( 'phpmailer_init', 'my_phpmailer_example' );
+ // function my_phpmailer_example( $phpmailer ) {
+ //     $phpmailer->isSMTP();
+ //     //$phpmailer->Host = 'smtp.example.com';
+ //     //    $phpmailer->SMTPAuth = true; // Force it to use Username and Password to authenticate
+ //     $phpmailer->Port = 25;
+ //     $phpmailer->Host = gethostbyname('mail.idemomotors.com'); // Specify main and backup SMTP servers
+ //     $phpmailer->SMTPAuth = true;                              // Enable SMTP authentication
+ //        $phpmailer->Username = 'info@workshopandalucia.com';
+ //        $phpmailer->Password = 'n9dc3KCWUO';
+ //
+ //     // Additional settings…
+ //     //$phpmailer->SMTPSecure = "tls"; // Choose SSL or TLS, if necessary for your server
+ //     $phpmailer->setFrom( "info@workshopandalucia.com", "Info Test" );
+ //     $phpmailer->addAddress( "molinerozadkiel@gmail.com", "Your name" );
+ //     $phpmailer->Subject    = "Testing PHPMailer";
+ //     $phpmailer->Body     = "Hurray! \n\n Great.";
+ //     if( !$phpmailer->send() ) {
+ //         echo "Mailer Error: " . $phpmailer->ErrorInfo;
+ //     } else {
+ //         echo "Message sent!";
+ //     }
+ //
+ // }
 
 
 
